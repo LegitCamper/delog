@@ -141,7 +141,10 @@ static mut LOGGER: Option<&'static dyn logger::TryLogWithStatistics> = None;
 
 /// Returns a reference to the logger (as `TryLogWithStatistics` implementation)
 pub fn logger() -> &'static mut Option<&'static dyn logger::TryLogWithStatistics> {
-    unsafe { &mut LOGGER }
+    #[allow(static_mut_refs)]
+    unsafe {
+        &mut LOGGER
+    }
 }
 
 // WARNING: this is not part of the crate's public API and is subject to change at any time.

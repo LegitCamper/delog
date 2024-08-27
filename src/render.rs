@@ -16,6 +16,7 @@ pub fn render_arguments<'a>(buf: &'a mut [u8], args: fmt::Arguments) -> &'a [u8]
 
 /// Render record, based on feature flags.
 pub fn render_record<'a>(buf: &'a mut [u8], record: &log::Record) -> &'a [u8] {
+    #[allow(unexpected_cfgs)]
     if cfg!(feature = "prefix-level") {
         match (record.file(), record.line()) {
             (Some(file), Some(line)) => render_arguments(
